@@ -1,0 +1,93 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --page: 246 247 251;
+    --surface: 255 255 255;
+    --surface-muted: 240 242 248;
+    --border: 226 230 240;
+    --fg: 15 23 42;
+    --fg-muted: 87 99 120;
+    --success: 21 128 61;
+    --danger: 185 28 28;
+    /* Standart brend (indigo); useBrandColor maktab rangiga almashtiradi */
+    --brand-50: 238 242 255;
+    --brand-100: 224 231 255;
+    --brand-200: 199 210 254;
+    --brand-300: 165 180 252;
+    --brand-400: 129 140 248;
+    --brand-500: 79 70 229;
+    --brand-600: 67 56 202;
+    --brand-700: 55 48 163;
+    --brand-800: 49 46 129;
+    --brand-900: 30 27 75;
+    --on-brand: 255 255 255;
+    --brand-fg: var(--brand-fg-light, 67 56 202);
+    color-scheme: light;
+  }
+  .dark {
+    --page: 8 11 22;
+    --surface: 17 22 38;
+    --surface-muted: 27 34 56;
+    --border: 42 52 78;
+    --fg: 241 245 249;
+    --fg-muted: 160 172 195;
+    --success: 74 222 128;
+    --danger: 248 113 113;
+    --brand-fg: var(--brand-fg-dark, 165 180 252);
+    color-scheme: dark;
+  }
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    @apply bg-page text-fg antialiased;
+    min-height: 100vh;
+  }
+  :focus-visible {
+    @apply outline-none ring-2 ring-brand-500 ring-offset-2 ring-offset-page;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+@layer components {
+  .card {
+    @apply rounded-2xl border border-border bg-surface shadow-card;
+  }
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl px-4 py-2.5 text-sm font-semibold transition-colors;
+  }
+  .btn-brand {
+    @apply bg-brand-500 text-on-brand hover:bg-brand-600;
+  }
+  .btn-ghost {
+    @apply border border-border bg-surface text-fg hover:bg-surface-muted;
+  }
+  .chip {
+    @apply inline-flex items-center rounded-full border border-border px-3 py-1.5 text-sm font-medium text-fg-muted transition-colors hover:bg-surface-muted;
+  }
+  .chip-active {
+    @apply border-transparent bg-brand-500 text-on-brand hover:bg-brand-600;
+  }
+}
+
+/* TV rejimi: kursorsiz, o'lchamlar ekranga proporsional */
+.tv-root {
+  --tv-unit: min(1vw, 1.78vh);
+  font-size: calc(var(--tv-unit) * 1.6);
+}
+.tv-idle,
+.tv-idle * {
+  cursor: none !important;
+}

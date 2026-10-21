@@ -1,0 +1,83 @@
+{
+  "app": {
+    "name": "Intizom reytingi",
+    "footer": "Yuksalish maktabi reyting tizimi",
+    "skip": "Asosiy tarkibga o'tish"
+  },
+  "theme": {
+    "light": "Yorug' mavzu",
+    "dark": "Qorong'i mavzu",
+    "system": "Tizim mavzusi",
+    "toggle": "Mavzuni almashtirish (hozir: {current})"
+  },
+  "home": {
+    "title": "O'quvchilar intizomi reytingi",
+    "subtitle": "Maktabingizni tanlang va eng intizomli o'quvchilar hamda sinflar bilan tanishing",
+    "globalTitle": "Umumiy reyting (maktablar)",
+    "globalText": "Maktablarning o'rtacha ball bo'yicha taqqoslanishi",
+    "searchPlaceholder": "Maktab nomini qidirish",
+    "emptyTitle": "Hozircha maktablar yo'q",
+    "emptyText": "Ochiq reyting yoqilgan maktablar bu yerda ko'rinadi. Keyinroq qaytib ko'ring."
+  },
+  "global": {
+    "title": "Maktablar reytingi",
+    "subtitle": "Maktablar o'quvchilarining o'rtacha bali bo'yicha"
+  },
+  "rating": {
+    "updated": "Yangilangan",
+    "schoolsRating": "Maktablar reytingi",
+    "tabs": {
+      "label": "Reyting turi",
+      "students": "O'quvchilar",
+      "classes": "Sinflar"
+    },
+    "podium": "Eng yaxshi uchtalik",
+    "place": "{n}-o'rin",
+    "rated": "Baholangan o'quvchilar: {n}",
+    "loadMore": "Ko'proq yuklash",
+    "openClass": "{name} sinfi o'quvchilarini ko'rish",
+    "change": {
+      "up": "{n} o'ringa ko'tarildi",
+      "down": "{n} o'ringa tushdi",
+      "same": "O'rin o'zgarmadi"
+    }
+  },
+  "filter": {
+    "grade": "Parallel",
+    "allGrades": "Hammasi",
+    "gradeN": "{n}-sinflar",
+    "class": "Sinf",
+    "allClasses": "Barcha sinflar",
+    "search": "Ism bo'yicha qidirish",
+    "searchPlaceholder": "F.I.Sh. bo'yicha qidirish"
+  },
+  "state": {
+    "loading": "Yuklanmoqda...",
+    "retry": "Qayta urinish",
+    "toHome": "Bosh sahifaga qaytish",
+    "offline": "Oflayn",
+    "errorTitle": "Ma'lumotni yuklab bo'lmadi",
+    "errorText": "Internet aloqasini tekshiring va qayta urinib ko'ring.",
+    "notFoundTitle": "Reyting topilmadi",
+    "notFoundText": "Bunday maktab yo'q yoki uning ochiq reytingi yoqilmagan.",
+    "emptyTitle": "Bu davrda hali reyting shakllanmagan",
+    "emptyText": "Baholar to'planishi bilan reyting shu yerda paydo bo'ladi.",
+    "noMatches": "Hech narsa topilmadi",
+    "noMatchesText": "Filtr yoki qidiruvni o'zgartirib ko'ring.",
+    "nothingTitle": "Ko'rsatiladigan reyting yo'q",
+    "nothingText": "Bu maktab hozircha reytingni ochiq ko'rsatmaydi."
+  },
+  "tv": {
+    "mode": "TV rejimi",
+    "controls": "TV boshqaruvi",
+    "prev": "Oldingi slayd",
+    "next": "Keyingi slayd",
+    "pause": "To'xtatish",
+    "play": "Davom ettirish",
+    "fullscreen": "To'liq ekran",
+    "exit": "Chiqish",
+    "slides": "Slaydlar",
+    "goTo": "{n}-slaydga o'tish",
+    "topStudents": "Eng yaxshi o'quvchilar"
+  }
+}
