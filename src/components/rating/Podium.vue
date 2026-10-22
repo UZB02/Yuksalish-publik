@@ -1,8 +1,9 @@
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, reactive } from 'vue'
 import { useI18n } from 'vue-i18n'
 import type { RouteLocationRaw } from 'vue-router'
 import AppIcon from '@/components/ui/AppIcon.vue'
+import { resolvePhotoUrl } from '@/utils/photo'
 import { formatScore, initials } from '@/utils/format'
 import RankChange from './RankChange.vue'
 
@@ -12,6 +13,8 @@ export interface PodiumItem {
   subtitle?: string
   score?: number
   rankChange?: number | null
+  /** Rasm havolasi (public API); yo'q bo'lsa bosh harflar */
+  photoUrl?: string | null
   /** Berilsa nom havola bo'ladi (masalan, maktab sahifasi) */
   to?: RouteLocationRaw
 }
@@ -30,6 +33,9 @@ const ordered = computed(() => {
     (x): x is PodiumItem => !!x,
   )
 })
+
+// Yuklanmagan rasmlar (rank bo'yicha) - bosh harflarga qaytadi
+const failed = reactive(new Set<number>())
 
 const BAR = ['h-[5.5em]', 'h-[4em]', 'h-[2.8em]']
 const RING = ['ring-gold', 'ring-silver', 'ring-bronze']
@@ -51,11 +57,21 @@ const idx = (rank: number) => Math.min(Math.max(rank, 1), 3) - 1
     >
       <div class="relative mb-[0.5em]">
         <span
-          class="flex h-[4.2em] w-[4.2em] items-center justify-center rounded-full bg-brand-100 text-[1.3em] font-bold text-brand-800 ring-4 dark:bg-brand-900 dark:text-brand-100"
+          class="flex h-[4.2em] w-[4.2em] items-center justify-center overflow-hidden rounded-full bg-brand-100 text-[1.3em] font-bold text-brand-800 ring-4 dark:bg-brand-900 dark:text-brand-100"
           :class="medals ? RING[idx(item.rank)] : 'ring-brand-300'"
-          aria-hidden="true"
+          :aria-hidden="item.photoUrl ? undefined : 'true'"
         >
-          {{ initials(item.title) }}
+          <img
+            v-if="item.photoUrl && !failed.has(item.rank)"
+            :src="resolvePhotoUrl(item.photoUrl) ?? ''"
+            :alt="item.title"
+            loading="lazy"
+            decoding="async"
+            class="h-full w-full object-cover"
+            data-testid="podium-photo"
+            @error="failed.add(item.rank)"
+          />
+          <template v-else>{{ initials(item.title) }}</template>
         </span>
         <span
           v-if="medals"

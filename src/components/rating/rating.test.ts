@@ -114,4 +114,53 @@ describe('StudentRow', () => {
     expect(w.find('[data-testid="row-score"]').text()).toBe('91')
     expect(w.find('[data-kind="down"]').exists()).toBe(true)
   })
+
+  it("photoUrl yo'q (rasmlar o'chiq): avatar chizilmaydi, dizayn o'zgarmaydi", () => {
+    const w = mount(StudentRow, { props: { item: base }, ...opts })
+    expect(w.find('[data-testid="person-avatar"]').exists()).toBe(false)
+    expect(w.find('img').exists()).toBe(false)
+  })
+  it('photoUrl bor: lazy rasm, API bazasi bilan', () => {
+    const w = mount(StudentRow, {
+      props: { item: { ...base, photoUrl: '/api/v1/public/demo/photos/abc' } },
+      ...opts,
+    })
+    const img = w.get('img')
+    expect(img.attributes('src')).toBe('/api/v1/public/demo/photos/abc')
+    expect(img.attributes('loading')).toBe('lazy')
+    expect(img.attributes('alt')).toBe('Aliyev Vali')
+  })
+  it('photoUrl null (rasmlar yoqilgan, o`quvchida yo`q): bosh harflar, joy saqlanadi', () => {
+    const w = mount(StudentRow, { props: { item: { ...base, photoUrl: null } }, ...opts })
+    expect(w.find('img').exists()).toBe(false)
+    expect(w.get('[data-testid="person-avatar"]').text()).toBe('AV')
+  })
+  it('rasm yuklanmasa bosh harflarga qaytadi', async () => {
+    const w = mount(StudentRow, {
+      props: { item: { ...base, photoUrl: '/api/v1/public/demo/photos/x' } },
+      ...opts,
+    })
+    await w.get('img').trigger('error')
+    expect(w.find('img').exists()).toBe(false)
+    expect(w.get('[data-testid="person-avatar"]').text()).toBe('AV')
+  })
+})
+
+describe('Podium: rasm', () => {
+  it('photoUrl bo`lsa rasm, bo`lmasa bosh harflar', () => {
+    const w = mount(Podium, {
+      props: {
+        items: [
+          item(1, { photoUrl: '/api/v1/public/demo/photos/a' }),
+          item(2),
+          item(3, { photoUrl: null }),
+        ],
+      },
+      ...opts,
+    })
+    const photos = w.findAll('[data-testid="podium-photo"]')
+    expect(photos).toHaveLength(1)
+    expect(photos[0]!.attributes('src')).toBe('/api/v1/public/demo/photos/a')
+    expect(photos[0]!.attributes('loading')).toBe('lazy')
+  })
 })

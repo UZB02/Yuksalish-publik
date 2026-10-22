@@ -28,6 +28,8 @@ export interface PublicConfig {
   showScores: boolean
   showMedals: boolean
   showTrend: boolean
+  /** Eski backend javobida bo'lmasligi mumkin */
+  showPhotos?: boolean
   topStudents: number | null
   autoRefreshSeconds: number
   tvSlideSeconds: number
@@ -55,6 +57,11 @@ export interface StudentItem {
   className: string
   classId: string
   score?: number
+  /**
+   * Faqat maktabda rasmlar yoqilgan bo'lsa javobda bor: rasm havolasi yoki null (rasmi yo'q).
+   * Maydon umuman yo'q (undefined) bo'lsa - rasmlar ko'rsatilmaydi.
+   */
+  photoUrl?: string | null
 }
 
 export interface GlobalItem {

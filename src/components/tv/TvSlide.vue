@@ -4,6 +4,7 @@ import AppIcon from '@/components/ui/AppIcon.vue'
 import Podium from '@/components/rating/Podium.vue'
 import RankBadge from '@/components/rating/RankBadge.vue'
 import RankChange from '@/components/rating/RankChange.vue'
+import PersonAvatar from '@/components/ui/PersonAvatar.vue'
 import SchoolLogo from '@/components/ui/SchoolLogo.vue'
 import type { Period } from '@/api/types'
 import { formatDate, formatScore, formatUpdated } from '@/utils/format'
@@ -67,6 +68,7 @@ const { t } = useI18n()
               subtitle: s.className,
               score: s.score,
               rankChange: s.rankChange,
+              photoUrl: s.photoUrl,
             }))
           "
         />
@@ -91,6 +93,12 @@ const { t } = useI18n()
           class="flex items-center gap-[0.9em] rounded-[0.8em] border border-border bg-surface px-[1em]"
         >
           <RankBadge :rank="s.rank" :medals="medals" class="!h-[2.2em] !w-[2.2em] !text-[1em]" />
+          <PersonAvatar
+            v-if="s.photoUrl !== undefined"
+            :name="s.fullName"
+            :src="s.photoUrl"
+            class="h-[2.6em] w-[2.6em] text-[1em]"
+          />
           <span class="min-w-0 flex-1 truncate text-[1.45em] font-semibold text-fg">{{
             s.fullName
           }}</span>

@@ -115,6 +115,7 @@ const loadingMore = computed(() => feed.refreshing.value && pages.value > 1)
                 subtitle: s.className,
                 score: s.score,
                 rankChange: s.rankChange,
+                photoUrl: s.photoUrl,
               }))
             "
           />
