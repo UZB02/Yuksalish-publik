@@ -2,7 +2,7 @@
 import { ref, watch } from 'vue'
 import { initials } from '@/utils/format'
 
-const props = defineProps<{ name: string; src?: string | null }>()
+const props = defineProps<{ name: string; src?: string | null; eager?: boolean }>()
 const failed = ref(false)
 watch(
   () => props.src,
@@ -18,7 +18,9 @@ watch(
       v-if="src && !failed"
       :src="src"
       :alt="name"
-      loading="lazy"
+      :loading="eager ? 'eager' : 'lazy'"
+      width="64"
+      height="64"
       class="h-full w-full object-contain"
       @error="failed = true"
     />

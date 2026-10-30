@@ -8,7 +8,24 @@ export interface ApiMeta {
 export interface SchoolRef {
   name: string
   slug: string
+  /** Eski backend javobida bo'lmasligi mumkin */
+  logoUrl?: string | null
+}
+
+export interface BrandingIcons {
+  favicon: string
+  icon192: string
+  icon512: string
+  maskable512: string
+  apple180: string
+}
+
+export interface Branding {
+  appName: string
+  shortName: string
   logoUrl: string | null
+  icons: BrandingIcons | null
+  version: string
 }
 
 export interface Period {
@@ -69,7 +86,8 @@ export interface GlobalItem {
   rankChange?: number | null
   schoolName: string
   slug: string
-  logoUrl: string | null
+  /** Eski backend javobida bo'lmasligi mumkin */
+  logoUrl?: string | null
   score?: number
   ratedStudents: number
 }

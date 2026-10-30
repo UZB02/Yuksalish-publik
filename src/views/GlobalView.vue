@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { useBranding } from '@/composables/useBranding'
 import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { publicApi } from '@/api/public.api'
@@ -13,6 +14,7 @@ import { useRatingData } from '@/composables/useRatingData'
 import { formatDate, formatUpdated } from '@/utils/format'
 
 const { t } = useI18n()
+const { appName } = useBranding()
 const rating = useRatingData((signal) => publicApi.global(signal), {
   intervalSeconds: () => 120,
 })
@@ -31,7 +33,7 @@ const info = computed<HeaderInfo>(() => ({
 }))
 usePageInfo(
   info,
-  computed(() => `${t('global.title')} | ${t('app.name')}`),
+  computed(() => `${t('global.title')} | ${appName.value}`),
 )
 </script>
 

@@ -62,7 +62,7 @@ const btn =
     @pointerdown="player.showControls()"
   >
     <header class="flex items-center gap-[1em] px-[2em] pt-[1.2em]">
-      <SchoolLogo :name="name" :src="logoUrl" class="h-[3.2em] w-[3.2em]" />
+      <SchoolLogo :name="name" :src="logoUrl" eager class="h-[4.5em] w-[4.5em]" />
       <div class="min-w-0 flex-1">
         <p class="truncate text-[1.9em] font-extrabold leading-tight">{{ title || name }}</p>
         <p v-if="period" class="text-[1.1em] font-semibold text-brand-fg">{{ period.label }}</p>

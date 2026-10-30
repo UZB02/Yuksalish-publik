@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { useBranding } from '@/composables/useBranding'
 import { computed, ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
 import { useI18n } from 'vue-i18n'
@@ -15,6 +16,7 @@ import { formatDate, formatUpdated } from '@/utils/format'
 import SchoolContent from './SchoolContent.vue'
 
 const { t } = useI18n()
+const { appName } = useBranding()
 const route = useRoute()
 const slug = computed(() => String(route.params.slug))
 
@@ -50,10 +52,10 @@ const info = computed<HeaderInfo | null>(() =>
 )
 const pageTitle = computed(() =>
   cfg.value
-    ? `${heading.value} - ${cfg.value.period.label} | ${t('app.name')}`
+    ? `${heading.value} - ${cfg.value.period.label} | ${appName.value}`
     : notFound.value
-      ? `${t('state.notFoundTitle')} | ${t('app.name')}`
-      : t('app.name'),
+      ? `${t('state.notFoundTitle')} | ${appName.value}`
+      : appName.value,
 )
 usePageInfo(info, pageTitle)
 </script>
@@ -101,6 +103,7 @@ usePageInfo(info, pageTitle)
         <SchoolLogo
           :name="cfg.school.name"
           :src="cfg.school.logoUrl"
+          eager
           class="h-16 w-16 bg-white/90 text-lg text-slate-800 sm:h-20 sm:w-20"
         />
         <div class="min-w-0 flex-1">

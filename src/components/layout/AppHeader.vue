@@ -1,14 +1,18 @@
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 import AppIcon from '@/components/ui/AppIcon.vue'
 import SchoolLogo from '@/components/ui/SchoolLogo.vue'
 import ThemeToggle from '@/components/ui/ThemeToggle.vue'
+import { useBranding } from '@/composables/useBranding'
 import { headerInfo } from '@/composables/usePageInfo'
 
 const { t } = useI18n()
 const route = useRoute()
+const { appName, logoUrl } = useBranding()
+const logoFailed = ref(false)
+watch(logoUrl, () => (logoFailed.value = false))
 
 const tvTarget = computed(() => {
   const slug = (route.params.slug as string | undefined) ?? headerInfo.value?.slug
@@ -24,16 +28,29 @@ const tvTarget = computed(() => {
     <div class="mx-auto flex h-16 max-w-5xl items-center gap-3 px-4">
       <RouterLink :to="{ name: 'home' }" class="flex min-w-0 items-center gap-3 rounded-xl">
         <template v-if="headerInfo?.slug">
-          <SchoolLogo :name="headerInfo.name" :src="headerInfo.logoUrl" class="h-9 w-9" />
+          <SchoolLogo :name="headerInfo.name" :src="headerInfo.logoUrl" eager class="h-9 w-9" />
           <span class="truncate text-base font-bold text-fg">{{ headerInfo.name }}</span>
         </template>
         <template v-else>
+          <img
+            v-if="logoUrl && !logoFailed"
+            :src="logoUrl"
+            :alt="appName"
+            width="36"
+            height="36"
+            data-testid="brand-logo"
+            class="h-9 w-9 shrink-0 rounded-xl object-contain"
+            @error="logoFailed = true"
+          />
           <span
+            v-else
             class="flex h-9 w-9 items-center justify-center rounded-xl bg-brand-500 text-on-brand"
           >
             <AppIcon name="trophy" class="h-5 w-5" />
           </span>
-          <span class="truncate text-base font-bold text-fg">{{ t('app.name') }}</span>
+          <span class="truncate text-base font-bold text-fg" data-testid="brand-name">{{
+            appName
+          }}</span>
         </template>
       </RouterLink>
 

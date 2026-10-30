@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { useBranding } from '@/composables/useBranding'
 import { computed, ref, watchEffect } from 'vue'
 import { useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
@@ -12,6 +13,7 @@ import { usePageInfo } from '@/composables/usePageInfo'
 import { useRatingData } from '@/composables/useRatingData'
 
 const { t } = useI18n()
+const { appName } = useBranding()
 const router = useRouter()
 
 const schools = useRatingData((signal) => publicApi.schools(signal))
@@ -49,7 +51,7 @@ watchEffect(() => {
 
 usePageInfo(
   ref(null),
-  computed(() => t('app.name')),
+  computed(() => appName.value),
 )
 </script>
 

@@ -5,11 +5,13 @@ import { useI18n } from 'vue-i18n'
 import { publicApi } from '@/api/public.api'
 import StateView from '@/components/ui/StateView.vue'
 import { useBrandColor } from '@/composables/useBrandColor'
+import { useBranding } from '@/composables/useBranding'
 import { useRatingData } from '@/composables/useRatingData'
 import TvGlobal from './TvGlobal.vue'
 import TvSchool from './TvSchool.vue'
 
 const { t } = useI18n()
+const { appName } = useBranding()
 const route = useRoute()
 const isGlobal = computed(() => route.name === 'global-tv')
 const slug = computed(() => String(route.params.slug ?? ''))
@@ -31,9 +33,9 @@ const error = computed(() => (isGlobal.value ? globalRating.error.value : config
 const notFound = computed(() => error.value?.kind === 'not_found')
 
 watch(
-  () => [cfg.value, isGlobal.value] as const,
+  () => [cfg.value, isGlobal.value, appName.value] as const,
   () => {
-    document.title = `${cfg.value?.school.name ?? t('global.title')} | ${t('tv.mode')}`
+    document.title = `${cfg.value?.school.name ?? t('global.title')} | ${t('tv.mode')} | ${appName.value}`
   },
   { immediate: true },
 )
