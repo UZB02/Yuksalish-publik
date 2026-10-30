@@ -30,19 +30,19 @@ describe('useBranding', () => {
   const fetchMock = vi.fn()
   beforeEach(() => {
     localStorage.clear()
-    document.head.innerHTML = '<link rel="icon" type="image/svg+xml" href="/favicon.svg">'
+    document.head.innerHTML = '<link rel="icon" type="image/png" href="/favicon-32x32.png">'
     fetchMock.mockReset()
     vi.stubGlobal('fetch', fetchMock)
   })
   afterEach(() => vi.unstubAllGlobals())
 
-  it("standart: tarjimadagi nom, logotip yo'q, favicon SVG", async () => {
+  it("standart: tarjimadagi nom, logotip yo'q, favicon PNG", async () => {
     fetchMock.mockRejectedValue(new Error('offline'))
     const m = await load()
     await m.initBranding()
     expect(m.useBranding().appName.value).toBe('Intizom reytingi')
     expect(m.useBranding().logoUrl.value).toBeNull()
-    expect(document.querySelector('link[rel="icon"]')?.getAttribute('href')).toBe('/favicon.svg')
+    expect(document.querySelector('link[rel="icon"]')?.getAttribute('href')).toBe('/favicon-32x32.png')
   })
 
   it('muvaffaqiyat: nom, logotip, favicon almashadi va kesh yoziladi', async () => {
@@ -74,12 +74,12 @@ describe('useBranding', () => {
     expect(m.useBranding().appName.value).toBe('Intizom reytingi')
   })
 
-  it("icons=null bo'lsa favicon SVG ga qaytadi", async () => {
+  it("icons=null bo'lsa favicon PNG ga qaytadi", async () => {
     const m = await load()
     m.applyFavicon(ICONS)
     m.applyFavicon(null)
     const link = document.querySelector('link[rel="icon"]')!
-    expect(link.getAttribute('href')).toBe('/favicon.svg')
-    expect(link.getAttribute('type')).toBe('image/svg+xml')
+    expect(link.getAttribute('href')).toBe('/favicon-32x32.png')
+    expect(link.getAttribute('type')).toBe('image/png')
   })
 })

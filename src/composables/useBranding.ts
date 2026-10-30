@@ -4,7 +4,7 @@ import type { Branding } from '@/api/types'
 import { i18n } from '@/i18n'
 
 const CACHE_KEY = 'branding'
-const DEFAULT_FAVICON = '/favicon.svg'
+const DEFAULT_FAVICON = '/favicon-32x32.png'
 
 function readCache(): Branding | null {
   try {
@@ -28,7 +28,7 @@ function writeCache(b: Branding) {
 // Modul darajasidagi holat: header, sarlavhalar va favicon bitta manbadan o'qiydi.
 export const branding = ref<Branding | null>(readCache())
 
-/** `<link rel="icon">` ni brending ikonkasiga almashtiradi; ikonka yo'q bo'lsa SVG ga qaytaradi. */
+/** `<link rel="icon">` ni brending ikonkasiga almashtiradi; ikonka yo'q bo'lsa standart PNG ga qaytaradi. */
 export function applyFavicon(icons: Branding['icons'] | undefined) {
   if (typeof document === 'undefined') return
   let link = document.querySelector<HTMLLinkElement>('link[rel="icon"]')
@@ -41,7 +41,7 @@ export function applyFavicon(icons: Branding['icons'] | undefined) {
     link.removeAttribute('type')
     link.href = icons.favicon
   } else {
-    link.type = 'image/svg+xml'
+    link.type = 'image/png'
     link.href = DEFAULT_FAVICON
   }
 }

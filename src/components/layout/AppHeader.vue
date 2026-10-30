@@ -8,6 +8,8 @@ import ThemeToggle from '@/components/ui/ThemeToggle.vue'
 import { useBranding } from '@/composables/useBranding'
 import { headerInfo } from '@/composables/usePageInfo'
 
+const DEFAULT_BRAND_MARK = '/brand/yuksalish-mark.png'
+
 const { t } = useI18n()
 const route = useRoute()
 const { appName, logoUrl } = useBranding()
@@ -42,12 +44,15 @@ const tvTarget = computed(() => {
             class="h-9 w-9 shrink-0 rounded-xl object-contain"
             @error="logoFailed = true"
           />
-          <span
+          <img
             v-else
-            class="flex h-9 w-9 items-center justify-center rounded-xl bg-brand-500 text-on-brand"
-          >
-            <AppIcon name="trophy" class="h-5 w-5" />
-          </span>
+            :src="DEFAULT_BRAND_MARK"
+            alt=""
+            width="36"
+            height="36"
+            data-testid="brand-default-mark"
+            class="h-9 w-9 shrink-0 object-contain"
+          />
           <span class="truncate text-base font-bold text-fg" data-testid="brand-name">{{
             appName
           }}</span>
